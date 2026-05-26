@@ -3,6 +3,7 @@ import "./index.css";
 import Card from "./component/Card";
 import axios from "axios";
 import { getImages } from "./services/api";
+import Skeleton from "./component/Skeleton";
 
 function App() {
   const [file, setFile] = useState([]);
@@ -11,13 +12,22 @@ function App() {
   const [imgSuccess, SetImgsuccess] = useState(false);
   const [progress, setProgress] = useState(0);
   const [preview, setPreview] = useState([]);
+  const [imageLoading, setImageLoading] = useState(true);
 
   //useEffect here to load images on every render/reload of the page
   // as before it's not getting load the images after upload only load the images
   // Fetch Images
   const fetchImages = async () => {
-    const imagesData = await getImages();
-    setImages(imagesData);
+    setImageLoading(true);
+
+    try {
+      const imagesData = await getImages();
+      setImages(imagesData);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setImageLoading(false);
+    }
   };
 
   const getUploadUrl = async () => {
@@ -205,17 +215,19 @@ bg-gradient-to-r from-emerald-400 to-teal-600
         <p>{file?.name}</p>
 
         <div className="w-[90%] bg-gray-400 rounded-2xl md:rounded-4xl p-[1rem] md:p-[2rem] p-4 gap-5 grid  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 bg-white/40 backdrop-blur-2xl border border-white/50  shadow-[0_8px_32px_rgba(31,38,135,0.12)] ">
-          {images.map((items) => {
-            return (
-              <Card
-                key={items.key}
-                name={items.key}
-                url={items.url}
-                imageKey={items.key}
-                fetchImages={fetchImages}
-              />
-            );
-          })}
+          {imageLoading
+            ? Array.from({ length: 6 }).map((_, index) => <Skeleton />)
+            : images.map((items) => {
+                return (
+                  <Card
+                    key={items.key}
+                    name={items.key}
+                    url={items.url}
+                    imageKey={items.key}
+                    fetchImages={fetchImages}
+                  />
+                );
+              })}
         </div>
       </div>
     </>
