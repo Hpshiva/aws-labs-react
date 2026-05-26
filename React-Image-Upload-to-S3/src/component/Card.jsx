@@ -9,22 +9,22 @@ function Card({ name, url, imageKey, fetchImages }) {
     await fetchImages();
   };
   return (
-    <div className="bg-gray-500 w-full h-fit  border border-default rounded-md shadow-xs">
+    <div className="bg-white w-full h-fit  border border-default rounded-3xl md:rounded-3xl shadow-md">
       <img
         src={url}
         alt=""
-        className="w-full rounded-md object-cover h-[10rem] sm:h-[14rem] lg:h-[18rem]"
+        className="w-full rounded-tl-xl rounded-tr-xl md:rounded-tl-3xl md:rounded-tr-3xl object-cover h-[14rem] sm:h-[14rem] lg:h-[18rem]"
       />
-      <div className="p-4 text-center flex  flex-col gap-5">
-        <h5 className="lg:text-2xl font-semibold tracking-tight text-heading">
+      <div className="p-4 text-center flex  flex-col gap-3">
+        <h5 className="lg:text-2xl font-semibold tracking-tight text-heading text-black">
           {name}
         </h5>
         <button
           onClick={deleteImage}
-          className="bg-red-500 rounded-full px-6 py-2"
+          className="hover:bg-red-500 border border-red-400 bg-red-100 rounded-xl px-6 py-2 text-red-500 hover:text-white font-bold"
         >
           {" "}
-          Delete{" "}
+          Delete Assest{" "}
         </button>
       </div>
     </div>
