@@ -21,7 +21,7 @@ function Card({ name, url, imageKey, fetchImages }) {
         </h5>
         <button
           onClick={deleteImage}
-          className="hover:bg-red-500 border border-red-400 bg-red-100 rounded-xl px-6 py-2 text-red-500 hover:text-white font-bold"
+          className="hover:bg-red-500 transition-all duration-400 border border-red-400 bg-red-100 rounded-xl px-6 py-2 text-red-500 hover:text-white font-bold"
         >
           {" "}
           Delete Assest{" "}
